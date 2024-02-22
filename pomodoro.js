@@ -56,7 +56,7 @@ function startTimer() {
 
 
     mainButton.dataset.action = 'stop';
-    mainButton.textContent = 'stop';
+    mainButton.textContent = 'Stop';
     mainButton.classList.add('active');
   
 
@@ -67,6 +67,19 @@ function startTimer() {
         total = timer.remainingTime.total;
         if(total <= 0){
             clearInterval(interval);
+            switch (timer.mode) {
+                case 'pomodoro':
+                  if (timer.sessions % timer.longBreakInterval === 0) {
+                    switchMode('longBreak');
+                  } else {
+                    switchMode('shortBreak');
+                  }
+                  break;
+                default:
+                  switchMode('pomodoro');
+              }
+        
+              startTimer();
         }
     }, 1000);
 }
