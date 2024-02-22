@@ -1,6 +1,23 @@
 body{
+    background-color: #ffccd8;
     background-image: url("background_gradient.png");
-    background-attachment: fixed;
     background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
     margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.5vw;
+}
+
+.timer{
+    display: flex;
+    flex-direction: row;
 }
