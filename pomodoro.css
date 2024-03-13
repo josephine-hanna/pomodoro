@@ -1,7 +1,19 @@
+:root {
+    --pomodoro: url("background_gradient.png");
+    --shortBreak: url("background_break.png");
+    --longBreak: url("background_break.png");
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-color: #ffccd8;
-    background-image: url("background_gradient.png");
-    background-repeat: no-repeat;
+    background-image: var(--pomodoro);
+    transition: background-image 3s ease-in-out;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -20,4 +32,12 @@ h1{
 .timer{
     display: flex;
     flex-direction: row;
+}
+
+progress{
+    height: 2vw;
+    width: 2vw;
+    background-color: transparent;
+    border-radius: 50%;
+    border: solid black;
 }

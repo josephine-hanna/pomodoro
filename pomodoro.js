@@ -1,5 +1,5 @@
 const timer = {
-    pomodoro: 50,
+    pomodoro: 1,
     shortBreak: 5, 
     longBreak: 10,
     longBreakInterval: 4, 
@@ -32,6 +32,10 @@ function switchMode(mode) {
         .querySelectorAll("button[data-mode]")
         .forEach(e => e.classList.remove("active"));
     document.querySelector(`[data-mode="${mode}"]`).classList.add("active");
+    document.body.style.backgroundImage = `var(--${mode})`;
+    document
+        .getElementById("js-progress")
+        .setAttribute("max", timer.remainingTime.total);
 
     updateClock();
 }
@@ -45,6 +49,9 @@ function updateClock() {
     const sec = document.getElementById("seconds");
     min.textContent = minutes; 
     sec.textContent = seconds;
+
+    const progress = document.getElementById("js-progress");
+    progress.value = timer[timer.mode] * 60 - timer.remainingTime.total;
 }
 
 
