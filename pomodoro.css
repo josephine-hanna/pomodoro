@@ -42,7 +42,3 @@ progress{
     border: solid black;
 }
 
-progress::-webkit-progress-value{
-    background-color: #ffccd8;
-}
-
