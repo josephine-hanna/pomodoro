@@ -147,11 +147,15 @@ function renderTodo(todo) {
     <label for="${todo.id}" class="tick js-tick"></label>
     <span>${todo.text}</span>
     <button class="delete-todo js-delete-todo">
-        <svg><use href="#delete-icon"></use></svg>
+        hallo
     </button>`;
 
 
-    list.append(node);
+    if(item){
+        list.replaceChild(node, item);
+    }else{
+        list.append(node);
+    }
 }
 
 function addTodo(text) {
@@ -165,8 +169,23 @@ function addTodo(text) {
     renderTodo(todo);
 }
 
-const form  = document.querySelector(".js-form");
+function toggleDone(key) {
+    const index = todtoItems.findIndex(item => item.id === Number(key));
+    todtoItems[index].checked = !todtoItems[index].checked;
+    renderTodo(todtoItems[index]);
+}
 
+function deleteTodo(key) {
+    const index = todtoItems.findIndex(item => item.id === Number(key));
+    const todo = {
+        deleted: true,
+        ...todtoItems[index]
+    };
+    todtoItems = todtoItems.filter(item => item.id !== Number(key));
+    renderTodo(todo);
+}
+
+const form  = document.querySelector(".js-form");
 form.addEventListener("submit", event => {
     event.preventDefault();
     const input = document.querySelector(".js-todo-input");
@@ -178,3 +197,26 @@ form.addEventListener("submit", event => {
         input.focus();
     }
 });
+
+const list = document.querySelector(".js-todo-list");
+list.addEventListener("click", event => {
+    if (event.target.classList.contains('js-tick')) {
+        const itemKey = event.target.parentElement.dataset.key;
+        toggleDone(itemKey);
+      }
+      
+      if (event.target.classList.contains('js-delete-todo')) {
+        const itemKey = event.target.parentElement.dataset.key;
+        deleteTodo(itemKey);
+      }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ref = localStorage.getItem('todoItems');
+    if (ref) {
+      todoItems = JSON.parse(ref);
+      todoItems.forEach(t => {
+        renderTodo(t);
+      });
+    }
+  });
