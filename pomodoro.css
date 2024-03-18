@@ -42,3 +42,7 @@ progress{
     border: solid black;
 }
 
+
+.checked{
+    background-color: black;
+}

@@ -131,92 +131,86 @@ function stopTimer() {
 
 /* TODO LISTE */
 
-let todtoItems = [];
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
 
-function renderTodo(todo) {
-    const list = document.querySelector(".js-todo-list");
-
-    const isChecked = todo.checked ? "done": "";
-    const node = document.createElement("li");
-
-    node.setAttribute("class", "todo-item ${isChecked}");
-    node.setAttribute("data-key", todo.id);
-
-    node.innerHTML = `
-    <input id="${todo.id}" type="checkbox"/>
-    <label for="${todo.id}" class="tick js-tick"></label>
-    <span>${todo.text}</span>
-    <button class="delete-todo js-delete-todo">
-        hallo
-    </button>`;
-
-
-    if(item){
-        list.replaceChild(node, item);
-    }else{
-        list.append(node);
+// Add a "checked" symbol when clicking on a list item
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+    if (ev.target.classList.contains('checked')) {
+        list.appendChild(ev.target);
     }
+  }
+}, false);
+
+// Create a new list item when clicking on the "Add" button
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+  saveList();
 }
+attachEventListeners();
 
-function addTodo(text) {
-    const todo = {
-        text,
-        checked: false,
-        id: Date.now(),
-    };
+/*
 
-    todtoItems.push(todo);
-    renderTodo(todo);
-}
-
-function toggleDone(key) {
-    const index = todtoItems.findIndex(item => item.id === Number(key));
-    todtoItems[index].checked = !todtoItems[index].checked;
-    renderTodo(todtoItems[index]);
-}
-
-function deleteTodo(key) {
-    const index = todtoItems.findIndex(item => item.id === Number(key));
-    const todo = {
-        deleted: true,
-        ...todtoItems[index]
-    };
-    todtoItems = todtoItems.filter(item => item.id !== Number(key));
-    renderTodo(todo);
-}
-
-const form  = document.querySelector(".js-form");
-form.addEventListener("submit", event => {
-    event.preventDefault();
-    const input = document.querySelector(".js-todo-input");
-    const text = input.value.trim();
-
-    if(text !== ""){
-        addTodo(text);
-        input.value="";
-        input.focus();
+document.addEventListener('DOMContentLoaded', function() {
+    var savedList = localStorage.getItem('savedList');
+    if (savedList) {
+      document.getElementById('myUL').innerHTML = savedList;
+      attachEventListeners(); // Reattach close listeners to the newly loaded list items
     }
 });
 
-const list = document.querySelector(".js-todo-list");
-list.addEventListener("click", event => {
-    if (event.target.classList.contains('js-tick')) {
-        const itemKey = event.target.parentElement.dataset.key;
-        toggleDone(itemKey);
-      }
-      
-      if (event.target.classList.contains('js-delete-todo')) {
-        const itemKey = event.target.parentElement.dataset.key;
-        deleteTodo(itemKey);
-      }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const ref = localStorage.getItem('todoItems');
-    if (ref) {
-      todoItems = JSON.parse(ref);
-      todoItems.forEach(t => {
-        renderTodo(t);
+function attachEventListeners() {
+    var listItems = document.querySelectorAll('li');
+    listItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+        item.classList.toggle('checked');
+        saveList(); // Save the updated list after a list item is checked
       });
-    }
-  });
+  
+      var closeBtn = item.querySelector('.close');
+      closeBtn.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent event bubbling to the list item
+        var listItem = this.parentElement;
+        listItem.style.display = 'none';
+        saveList(); // Save the updated list after an item is removed
+      });
+    });
+  }
+
+function saveList() {
+    var listHtml = document.getElementById('myUL').innerHTML;
+    localStorage.setItem('savedList', listHtml);
+}
+*/
