@@ -67,8 +67,11 @@ progress{
 .display{
     position: relative;
     left: 10px;
-    transition: left 1.5s ;
-
+    transition: left 1.5s;
+    writing-mode: vertical-rl;
+    border-radius: 0 0.8vw 0.8vw 0;
+    font-size: 1.5vw;
+    padding: 0.25vw;
 }
 
 .display.active{
