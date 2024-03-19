@@ -46,3 +46,31 @@ progress{
 .checked{
     background-color: black;
 }
+
+.todo{
+    position: relative;
+    width: 200px;
+    top: 0;
+    left: 0;
+    transition: left 1.5s ;
+}
+
+.todo.active{
+    left: -200px;
+}
+
+.todo-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.display{
+    position: relative;
+    left: 200px;
+    transition: left 1.5s ;
+
+}
+
+.display.active{
+    left: -200px;
+}

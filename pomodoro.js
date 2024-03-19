@@ -179,8 +179,35 @@ function newElement() {
   }
   saveList();
 }
-attachEventListeners();
+//attachEventListeners();
 
+const input = document.getElementById("myInput");
+input.addEventListener("keyup", function(event){
+  if(event.key === "Enter"){
+    event.preventDefault();
+    newElement();
+  }
+})
+
+
+
+/*Display Todo-List
+const display = document.getElementById("display");
+const todo = document.getElementById("todo");
+display.addEventListener("click", function(){
+  if(todo.style.display === "none"){
+    todo.style.display = "block";
+  }else{
+    todo.style.display = "none";
+  }
+});*/
+
+function toggleHiddenTodo(){
+  var hiddenDiv = document.getElementById("todo");
+  var button = document.getElementById("display");
+  hiddenDiv.classList.toggle("active");
+  button.classList.toggle("active");
+}
 /*
 
 document.addEventListener('DOMContentLoaded', function() {
