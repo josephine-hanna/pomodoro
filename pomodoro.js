@@ -75,7 +75,7 @@ function updateHearts() {
       heart.classList.add("bi-bookmark-heart");
     }
   })
-  if(sessions > 4){
+  if(sessions >= 4){
     timer.sessions = 0;
   }
 }
