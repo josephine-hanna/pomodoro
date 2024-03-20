@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
     <link rel="stylesheet" href="pomodoro.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <h1>Pomodoro Timer</h1>
     <div class="pomodoro">
-        <progress id="js-progress" value="0"></progress>
-        <div class="hearts"></div>
+        <div class="progress-container">
+            <div class="progress-circle">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        <div class="hearts">
+            <i class="bi bi-bookmark-heart" id="h-1" style="font-size: 2rem;"></i>
+            <i class="bi bi-bookmark-heart" id="h-2" style="font-size: 2rem;"></i>
+            <i class="bi bi-bookmark-heart" id="h-3" style="font-size: 2rem;"></i>
+            <i class="bi bi-bookmark-heart" id="h-4" style="font-size: 2rem;"></i>
+        </div>
         <div class="timer">
             <div id="minutes">50</div>
             <div class="separator">:</div>
@@ -33,7 +42,7 @@
             </div>
             <ul id="myUL"></ul>
         </div>
-        <button class="display" id="display" onclick="toggleHiddenTodo()">TODO</button>
+        <button class="display" id="display" onclick="toggleHiddenTodo()">todo.</button>
     </div>
 </body>
 <script src="pomodoro.js"></script>
