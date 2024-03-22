@@ -34,14 +34,7 @@ h1{
     flex-direction: row;
 }
 
-progress{
-    height: 2vw;
-    width: 2vw;
-    background-color: transparent;
-    border-radius: 50%;
-    border: solid black;
-}
-
+/*TODO LIST*/
 
 .checked{
     background-color: black;
@@ -52,7 +45,9 @@ progress{
     width: 200px;
     top: 0;
     left: 0;
-    transition: left 1.5s ;
+    transition: left 1.5s;
+    background: rgb(226, 234, 244, 0.5);
+    padding: 1vw;
 }
 
 .todo.active{
@@ -68,15 +63,25 @@ progress{
     position: relative;
     left: 0px;
     transition: left 1.5s;
-    writing-mode: vertical-rl;
     border-radius: 0 0.8vw 0.8vw 0;
-    font-size: 1.5vw;
+    font-size: 1vw;
     padding: 0.25vw;
-    height: 80px;
+    height: 100px;
+    line-height: 0.85vw;
 }
 
 .display.active{
     left: -200px;
+}
+
+/* PROGRESS BAR*/
+
+progress{
+    height: 2vw;
+    width: 2vw;
+    background-color: transparent;
+    border-radius: 50%;
+    border: solid black;
 }
 
 .progress-container{

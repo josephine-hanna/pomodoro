@@ -9,18 +9,21 @@
 </head>
 <body>
     <h1>Pomodoro Timer</h1>
+    <!--Progress-->
     <div class="pomodoro">
         <div class="progress-container">
             <div class="progress-circle">
                 <div class="progress" id="progress"></div>
             </div>
         </div>
+        <!--Icons-->
         <div class="hearts">
             <i class="bi bi-bookmark-heart" id="h-1" style="font-size: 2rem;"></i>
             <i class="bi bi-bookmark-heart" id="h-2" style="font-size: 2rem;"></i>
             <i class="bi bi-bookmark-heart" id="h-3" style="font-size: 2rem;"></i>
             <i class="bi bi-bookmark-heart" id="h-4" style="font-size: 2rem;"></i>
         </div>
+        <!--Timer-->
         <div class="timer">
             <div id="minutes">50</div>
             <div class="separator">:</div>
@@ -33,6 +36,7 @@
             <button data-mode="longBreak" id="long-break" class="button mode-button">Long Break</button>       
         </div>
     </div>
+    <!--TODO-->
     <div class="todo-container">
         <div id="todo" class="todo">
             <div id="myDIV" class="header">
@@ -42,7 +46,7 @@
             </div>
             <ul id="myUL"></ul>
         </div>
-        <button class="display" id="display" onclick="toggleHiddenTodo()">todo.</button>
+        <button class="display" id="display" onclick="toggleHiddenTodo()">t<br>o<br>d<br>o</button>
     </div>
 </body>
 <script src="pomodoro.js"></script>
