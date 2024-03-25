@@ -2,6 +2,13 @@
     --pomodoro: url("background_gradient.png");
     --shortBreak: url("background_break.png");
     --longBreak: url("background_break.png");
+    --button:  rgb(255, 197, 197);
+    --todo:  rgba(235, 53, 53, 0.1);
+}
+
+.break{
+    --button:  rgb(50, 110, 201);
+    --todo: ;
 }
 
 *{
@@ -20,18 +27,42 @@ body{
     background-position: center center;
     margin: 0;
     padding: 0;
+    font-family: lilita one;
 }
 
 h1{
     color: white;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 3.5vw;
 }
 
-.timer{
+.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
+    font-size: 3vw;
+    font-family: lilita one;
+    color: rgb(255, 255, 255);
+}
+
+.pomodoro{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+#minutes, #seconds{
+    width: 3.9vw;
+    display: flex;
+    justify-content: center;
 }
 
 /*TODO LIST*/
@@ -44,14 +75,17 @@ h1{
     position: relative;
     width: 200px;
     top: 0;
-    left: 0;
+    left: -200px;
     transition: left 1.5s;
-    background: rgb(226, 234, 244, 0.5);
+    background: var(--todo);
     padding: 1vw;
+    height: fit-content;
+    max-height: 50vh;
+    overflow-y: scroll;
 }
 
 .todo.active{
-    left: -200px;
+    left: 0;
 }
 
 .todo-container{
@@ -61,7 +95,7 @@ h1{
 
 .display{
     position: relative;
-    left: 0px;
+    left: -200px;
     transition: left 1.5s;
     border-radius: 0 0.8vw 0.8vw 0;
     font-size: 1vw;
@@ -71,23 +105,20 @@ h1{
 }
 
 .display.active{
-    left: -200px;
+    left: 0px;
 }
 
 /* PROGRESS BAR*/
 
-progress{
-    height: 2vw;
-    width: 2vw;
-    background-color: transparent;
-    border-radius: 50%;
-    border: solid black;
-}
 
 .progress-container{
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .progress-circle{
@@ -104,5 +135,33 @@ progress{
     width: 100%;
     height: 100%;
     background-color: transparent;
-    clip-path: path('M20 100 a80 80 0 0 0 160 0 a80 80 0 0 0 -160 0 L0 100 L0 0 L200 0 L200 200 L0 200 L0 100 Z');
+    clip-path: path('M40 200 A160 160 0 0 0 360 200 A160 160 0 0 0 40 200 L0 200 L0 0 L400 0 L400 400 L0 400 L0 200 Z');
+}
+
+.con-timer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+
+.pomodoro-todo{
+    display: flex;
+}
+
+button{
+    background: transparent;
+    padding: 0.5vw 1vw;
+    border:var(--button) solid 0.15vw;
+    border-radius: 2vw;
+    cursor: pointer;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+button:hover{
+    background: var(--button);
 }

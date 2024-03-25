@@ -23,21 +23,26 @@ function handleMode(event) {
 function switchMode(mode) {
   timer.mode = mode; 
   timer.remainingTime = {
-      total: timer[mode] * 60,
-      minutes: timer[mode],
-      seconds: 0,
+    total: timer[mode] * 60,
+    minutes: timer[mode],
+    seconds: 0,
   };
 
   document
-      .querySelectorAll("button[data-mode]")
-      .forEach(e => e.classList.remove("active"));
+    .querySelectorAll("button[data-mode]")
+    .forEach(e => e.classList.remove("active"));
   document.querySelector(`[data-mode="${mode}"]`).classList.add("active");
   document.body.style.backgroundImage = `var(--${mode})`;
   document
-      .getElementById("progress")
-      .style.setProperty("--progress", timer.remainingTime.total)
+    .getElementById("progress")
+    .style.setProperty("--progress", timer.remainingTime.total)
   updateClock();
   updateHearts();
+  if (mode != "pomodoro") {
+    document.documentElement.classList.add("break");
+  } else{
+    document.documentElement.classList.remove("break");
+  }
 }
 
 function updateClock() {
@@ -59,7 +64,7 @@ function updateClock() {
   const progressBar = document.getElementById("progress");
   progressBar.style.setProperty('--progress', `${progress}%`);
   const gradientAngle = progress * 3.6; // Convert progress to degrees
-  progressBar.style.backgroundImage = `conic-gradient(#5a1d49 ${gradientAngle}deg, transparent 0deg)`;
+  progressBar.style.backgroundImage = `conic-gradient(rgb(255, 255, 255, 30%)${gradientAngle}deg, transparent 0deg)`;
 }
 
 function updateHearts() {
