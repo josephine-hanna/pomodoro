@@ -1,6 +1,6 @@
 const timer = {
-  pomodoro: 50,
-  shortBreak: 5, 
+  pomodoro: 1,
+  shortBreak: 1, 
   longBreak: 10,
   longBreakInterval: 4, 
   sessions: 0,
@@ -65,6 +65,7 @@ function updateClock() {
   progressBar.style.setProperty('--progress', `${progress}%`);
   const gradientAngle = progress * 3.6; // Convert progress to degrees
   progressBar.style.backgroundImage = `conic-gradient(rgb(255, 255, 255, 30%)${gradientAngle}deg, transparent 0deg)`;
+  
 }
 
 function updateHearts() {
@@ -84,6 +85,8 @@ function updateHearts() {
     timer.sessions = 0;
   }
 }
+
+
 
 function startTimer() {
   let {total} = timer.remainingTime;
@@ -115,7 +118,6 @@ function startTimer() {
             default:
               switchMode('pomodoro');
           }
-    
           startTimer();
     }
   }, 1000);
@@ -141,9 +143,9 @@ const mainButton = document.getElementById("start");
 mainButton.addEventListener("click", () => {
   const {action} = mainButton.dataset;
   if(action === "start"){
-      startTimer();
+    startTimer();
   }else{
-      stopTimer();
+    stopTimer();
   }
 });
 
@@ -154,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function stopTimer() {
   clearInterval(interval);
-
   mainButton.dataset.action = "start";
   mainButton.textContent = "Start";
   mainButton.classList.remove("active");
+  if(timer.sessions != 0) timer.sessions--;
 }
 
 /* TODO LISTE */
@@ -272,5 +274,3 @@ function saveList() {
     localStorage.setItem('savedList', listHtml);
 }
 */
-
-
