@@ -55,6 +55,7 @@ function updateClock() {
   min.textContent = minutes; 
   sec.textContent = seconds;
 
+  document.title = `Pomodoro - ${minutes}:${seconds}`;
 
   const totalSeconds = timer[mode] * 60;
   const remainingSeconds = remainingTime.minutes * 60 + remainingTime.seconds;
@@ -164,6 +165,16 @@ function stopTimer() {
 
 /* TODO LISTE */
 
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
 var i;
@@ -223,17 +234,6 @@ input.addEventListener("keyup", function(event){
 })
 
 
-
-/*Display Todo-List
-const display = document.getElementById("display");
-const todo = document.getElementById("todo");
-display.addEventListener("click", function(){
-  if(todo.style.display === "none"){
-    todo.style.display = "block";
-  }else{
-    todo.style.display = "none";
-  }
-});*/
 
 function toggleHiddenTodo(){
   var hiddenDiv = document.getElementById("todo");
