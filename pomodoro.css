@@ -51,7 +51,8 @@ h1{
 }
 
 .pomodoro{
-    margin: auto;
+    margin-left: 23vw;
+    margin-top: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,8 +68,17 @@ h1{
 
 /*TODO LIST*/
 
-.checked{
-    background-color: black;
+#myUL p{
+    width: 100%;
+}
+
+.checked p{
+    color: grey;
+    text-decoration: line-through;
+}
+
+.close{
+    padding: 0 1vw 0 1vw;
 }
 
 .todo{

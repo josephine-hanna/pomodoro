@@ -166,23 +166,27 @@ function stopTimer() {
 /* TODO LISTE */
 
 var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
+for (var i = 0; i < myNodelist.length; i++) {
   var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
+  var p = document.createElement("P"); // Create a new paragraph element
+  var inputValue = document.createTextNode(myNodelist[i].textContent); // Get the text content of the list item
+  p.appendChild(inputValue); // Append the input value to the paragraph
   span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
+  span.appendChild(p); // Append the paragraph to the span
+  myNodelist[i].innerHTML = ''; // Remove existing content inside the list item
+  myNodelist[i].appendChild(span); // Append the span to the list item
 
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
+  // Click on a close button to hide the current list item
+  span.onclick = function() {
     var div = this.parentElement;
     div.style.display = "none";
-  }
+  };
+
+  // Click on the paragraph to toggle checked class
+  p.onclick = function() {
+    var li = this.parentElement.parentElement; // Get the parent li of the clicked paragraph
+    li.classList.toggle('checked'); // Toggle the checked class of the parent li
+  };
 }
 
 // Add a "checked" symbol when clicking on a list item
@@ -196,12 +200,13 @@ list.addEventListener('click', function(ev) {
   }
 }, false);
 
-// Create a new list item when clicking on the "Add" button
 function newElement() {
   var li = document.createElement("li");
   var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
+  var p = document.createElement("P"); // Create a new paragraph element
+  var inputValuePara = document.createTextNode(inputValue); // Create a text node with input value
+  p.appendChild(inputValuePara); // Append the input value to the paragraph
+  li.appendChild(p); // Append the paragraph to the list item
   if (inputValue === '') {
     alert("You must write something!");
   } else {
@@ -210,21 +215,24 @@ function newElement() {
   document.getElementById("myInput").value = "";
 
   var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
+  var closeSymbol = document.createTextNode("\u00D7"); // Text content for the close symbol
   span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
+  span.appendChild(closeSymbol); // Append the close symbol to the span
+  li.appendChild(span); // Append the span to the list item
 
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
+  // Click on a close button to hide the current list item (for newly created items)
+  span.onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  };
+
+  // Click on the paragraph to toggle checked class (for newly created items)
+  p.onclick = function() {
+    var li = this.parentElement; // Get the parent li of the clicked paragraph
+    li.classList.toggle('checked'); // Toggle the checked class of the parent li
+  };
   saveList();
 }
-//attachEventListeners();
-
 const input = document.getElementById("myInput");
 input.addEventListener("keyup", function(event){
   if(event.key === "Enter"){
