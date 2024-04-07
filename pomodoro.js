@@ -1,11 +1,10 @@
 const timer = {
-  pomodoro: 1,
+  pomodoro: 50,
   shortBreak: 1, 
   longBreak: 10,
   longBreakInterval: 4, 
   sessions: 0,
 }
-
 
 let interval; 
 
@@ -175,29 +174,21 @@ for (var i = 0; i < myNodelist.length; i++) {
   span.appendChild(p); // Append the paragraph to the span
   myNodelist[i].innerHTML = ''; // Remove existing content inside the list item
   myNodelist[i].appendChild(span); // Append the span to the list item
-
-  // Click on a close button to hide the current list item
-  span.onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  };
-
-  // Click on the paragraph to toggle checked class
-  p.onclick = function() {
-    var li = this.parentElement.parentElement; // Get the parent li of the clicked paragraph
-    li.classList.toggle('checked'); // Toggle the checked class of the parent li
-  };
 }
 
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
+
+// Toggle checked class and move checked items to the bottom
 list.addEventListener('click', function(ev) {
+  console.log(list)
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
     if (ev.target.classList.contains('checked')) {
-      list.appendChild(ev.target);
+      list.appendChild(ev.target); // Move checked item to the bottom
     }
   }
+  console.log("2",list.length)
 }, false);
 
 function newElement() {
@@ -229,9 +220,12 @@ function newElement() {
   // Click on the paragraph to toggle checked class (for newly created items)
   p.onclick = function() {
     var li = this.parentElement; // Get the parent li of the clicked paragraph
-    li.classList.toggle('checked'); // Toggle the checked class of the parent li
+      li.classList.toggle('checked'); // Toggle the checked class of the parent li
+      if(li.classList.contains("checked")){
+        list.appendChild(li);
+      }
   };
-  saveList();
+  //saveList();
 }
 const input = document.getElementById("myInput");
 input.addEventListener("keyup", function(event){
@@ -241,44 +235,47 @@ input.addEventListener("keyup", function(event){
   }
 })
 
-
-
 function toggleHiddenTodo(){
   var hiddenDiv = document.getElementById("todo");
   var button = document.getElementById("display");
   hiddenDiv.classList.toggle("active");
   button.classList.toggle("active");
 }
-/*
 
-document.addEventListener('DOMContentLoaded', function() {
-    var savedList = localStorage.getItem('savedList');
-    if (savedList) {
-      document.getElementById('myUL').innerHTML = savedList;
-      attachEventListeners(); // Reattach close listeners to the newly loaded list items
+// Function to save the timer and list state to localStorage
+function saveState() {
+  localStorage.setItem('timerState', JSON.stringify({
+    mode: timer.mode,
+    sessions: timer.sessions
+  }));
+  localStorage.setItem('todoList', document.getElementById('myUL').innerHTML);
+}
+
+// Function to load the timer and list state from localStorage
+function loadState() {
+  const savedTimerState = localStorage.getItem('timerState');
+  const savedTodoList = localStorage.getItem('todoList');
+  if (savedTimerState) {
+    const parsedTimerState = JSON.parse(savedTimerState);
+    timer.mode = parsedTimerState.mode;
+    timer.sessions = parsedTimerState.sessions;
+    switchMode(timer.mode); // Load the timer mode
+    updateClock(); // Update the clock with saved time
+    updateHearts(); // Update the hearts if necessary
+    if (timer.sessions > 0) {
+      startTimer(); // If there are active sessions, resume the timer
     }
+  }
+  if (savedTodoList) {
+    document.getElementById('myUL').innerHTML = savedTodoList; // Load the todo list
+  }
+}
+
+// Add an event listener to save state whenever the list or timer changes
+document.addEventListener('DOMContentLoaded', () => {
+  loadState(); // Load saved state on page load
+  switchMode('pomodoro'); // Ensure the default mode is set
 });
 
-function attachEventListeners() {
-    var listItems = document.querySelectorAll('li');
-    listItems.forEach(function(item) {
-      item.addEventListener('click', function() {
-        item.classList.toggle('checked');
-        saveList(); // Save the updated list after a list item is checked
-      });
-  
-      var closeBtn = item.querySelector('.close');
-      closeBtn.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent event bubbling to the list item
-        var listItem = this.parentElement;
-        listItem.style.display = 'none';
-        saveList(); // Save the updated list after an item is removed
-      });
-    });
-  }
 
-function saveList() {
-    var listHtml = document.getElementById('myUL').innerHTML;
-    localStorage.setItem('savedList', listHtml);
-}
-*/
+

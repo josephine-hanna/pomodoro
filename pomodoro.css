@@ -66,6 +66,10 @@ h1{
     justify-content: center;
 }
 
+#start{
+    width: 5vw;
+}
+
 /*TODO LIST*/
 
 #myUL p{
